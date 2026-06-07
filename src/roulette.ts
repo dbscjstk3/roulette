@@ -166,6 +166,13 @@ export class Roulette extends EventTarget {
           );
           this._winner = this._marbles[i + 1];
           this._isRunning = false;
+          window.parent.postMessage(
+            {
+              type: 'roulette-result',
+              rankings: this._winners.map((m) => m.name),
+            },
+            '*'
+          );
           this._particleManager.shot(this._renderer.width, this._renderer.height);
           setTimeout(() => {
             this._recorder.stop();
